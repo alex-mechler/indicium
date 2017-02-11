@@ -11,3 +11,10 @@ def index(request):
     if request.method == 'GET':
         template = loader.get_template('signup.html')
         return HttpResponse(template.render())
+    else:
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        confirm_password = request.POST.get('confirm', '')
+        dob = request.POST.get('dob', '')
+        email = request.POST.get('email', '')
+        
