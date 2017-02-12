@@ -19,7 +19,7 @@ def index(request):
         if request.POST.get("send_action", None) != None:
             # Get user information
             u = User.objects.get(pk=uid)
-            if(u.doctor_email is None):
+            if(u.doctor_email is None or '@' not in u.doctor_email):
                 template = loader.get_template('dashboard/message.html')
                 return HttpResponse(template.render({"message":'You need to <a href= "../dashboard/settings">set a doctors email</a> before you can send them an email!'}, request))
             # Construct email from selected symptoms
@@ -41,7 +41,7 @@ def index(request):
             send_mail(subject='Patient Symptoms',
                       message=text,
                       from_email='reports@indiciumapp.com',
-                      recipient_list=[u.doctor_email, 'ejm4010@rit.edu'])
+                      recipient_list=[u.doctor_email])
 
     # Otherwise, just respond with dashboard
     template = loader.get_template('dashboard/index.html')
@@ -82,6 +82,10 @@ def settings(request):
     dob = request.POST.get("dob", None)
     email = request.POST.get("email", None)
     doctor_email = request.POST.get("doctor_email", None)
+    # Validate the input
+    if "@" not in email:
+        template = loader.get_template('dashboard/message.html')
+        return HttpResponse(template.render({"message":"You must provide a valid email."}, request))
     # Update the database entry
     user_row = User.objects.get(pk=uid)
     user_row.first_name = first_name

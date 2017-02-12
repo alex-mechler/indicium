@@ -122,6 +122,7 @@
 										<form action="{% url 'dashboard:new_symptom' %}" method="post" accept-charset="utf-8">
 											{% csrf_token %}
 											<p>Symptom Title: <input type="text" name="symptom"/></p>
+											<p><input type="button" onclick="this.form.start=(new Date).getTime();this.form.end=this.form.start;" value="NOW" class="btn btn-primary"/></p>
 											<p>Start Date: <input type="text" name="start"/></p>
 											<p>End Date: <input type="text" name="end"/></p>
 											<p>
@@ -150,7 +151,7 @@
 												Symptom Description:
 												<br><textarea name="comments" rows="5" cols="80"></textarea>
 											</p>
-											<input type='submit'class="btn btn-primary"/>
+											<input type='submit' class="btn btn-primary"/>
 										</form>
 									</div>
 								</div>
