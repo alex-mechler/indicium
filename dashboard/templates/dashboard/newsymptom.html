@@ -55,7 +55,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-header pull-left">
-					<a href="index.html" class="navbar-brand">
+					<a href="{% url 'dashboard:index' %}" class="navbar-brand">
 						<small>
 							<i class="fa fa-user-md"></i>
 							INDICIUM
@@ -64,7 +64,6 @@
 				</div>
 			</div><!-- /.navbar-container -->
 		</div>
-
 
 		<div class="main-container ace-save-state" id="main-container">
 			<script type="text/javascript">
@@ -78,21 +77,21 @@
 				</script>
 				<ul class="nav nav-list">
 					<li class="active">
-						<a href="/dashboard">
+						<a href="{% url 'dashboard:index' %}">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
 						</a>
 						<b class="arrow"></b>
 					</li>
-					<li><a href="/dashboard">
+					<li><a href="{% url 'dashboard:index' %}">
 						<i class="menu-icon fa fa-list"></i>
 						<span class="menu-text">Manage Symptoms</span>
 					</a></li>
-					<li><a href="/dashboard/dependants">
+					<li><a href="{% url 'dashboard:dependants' %}">
 						<i class="menu-icon fa fa-users"></i>
 						<span class="menu-text">Manage Dependants</span>
 					</a></li>
-					<li class=""><a href="/dashboard/settings">
+					<li class=""><a href="{% url 'dashboard:settings' %}">
 						<i class="menu-icon fa fa-user"></i>
 						<span class="menu-text">Manage Account</span>
 					</a></li>
@@ -101,7 +100,6 @@
 					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 				</div>
 			</div><!-- /.sidebar -->
-
 
 			<div class="main-content">
 				<div class="main-content-inner">

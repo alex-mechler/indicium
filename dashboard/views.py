@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 import request_id
 
 def index(request):
+    """Handles the editing of user symptoms"""
 
     # Perform action if requested
     if request.method == 'POST':
@@ -40,70 +41,82 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def settings(request):
+    """Handles the editing of user settings"""
+
+    # Check that the user is authenticated first
     uid = request_id.get_id(request)
-    template = loader.get_template('dashboard/settings.html')
-    context = {}
-    if uid:
-        context['user_row'] = User.objects.get(pk=uid)
+    if not uid:
+        template = loader.get_template('dashboard/message.html')
+        return HttpResponse(template.render({"message":"You need to log in before you can continue."}, request))
+
+    # Handle GET request
+    if request.method == 'GET':
+        template = loader.get_template('dashboard/settings.html')
+        context = {"user_row": User.objects.get(pk=uid)}
+        return HttpResponse(template.render(context, request))
+
+    # Handle POST request
+    first_name = request.POST.get("first_name", None)
+    last_name = request.POST.get("last_name", None)
+    dob = request.POST.get("dob", None)
+    email = request.POST.get("email", None)
+    doctor_email = request.POST.get("doctor_email", None)
+    # Update the database entry
+    user_row = User.objects.get(pk=uid)
+    user_row.first_name = first_name
+    user_row.last_name = last_name
+    user_row.dob = dob
+    user_row.email = email
+    user_row.doctor_email = doctor_email
+    user_row.save()
+    # Send response
+    template = loader.get_template('dashboard/message.html')
+    context = {"message":"Your information was updated successfully!"}
     return HttpResponse(template.render(context, request))
 
 def new_symptom(request):
-    template = loader.get_template('dashboard/newsymptom.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    # Check that the user is authenticated first
+    uid = request_id.get_id(request)
+    if not uid:
+        template = loader.get_template('dashboard/message.html')
+        return HttpResponse(template.render({"message":"You need to log in before you can continue."}, request))
 
-def post_symptom(request):
+    # Handle GET request
+    if request.method == 'GET':
+        template = loader.get_template('dashboard/newsymptom.html')
+        return HttpResponse(template.render({}, request))
+
+    # Handle POST request
     symptom = request.POST.get("symptom", None)
     start = request.POST.get("start", None)
     end = request.POST.get("end", None)
     intensity = request.POST.get("intensity", None)
     location = request.POST.get("location", None)
     comments = request.POST.get("comments", None)
-    # Get template
+    # Create a new symptom entry
+    s = Symptoms(user_id=uid, control_id=uid, symptom=symptom, start=start, end=end, intensity=intensity, location=location, comments=comments)
+    s.save()
+    # Send response
     template = loader.get_template('dashboard/message.html')
-    context = {"message" : "There was a problem adding your symptom."}
-    # create a new symptom entry
-    uid = request_id.get_id(request)
-    if uid:
-        s = Symptoms(user_id=uid, control_id=uid, symptom=symptom, start=start, end=end, intensity=intensity, location=location, comments=comments)
-        s.save()
-        context["message"] = "Your new symptom was successfully added to the database."
+    context = {"message": "Your new symptom was successfully added to the database."}
     return HttpResponse(template.render(context, request))
 
-def post_settings(request):
-    first_name = request.POST.get("first_name", None)
-    last_name = request.POST.get("last_name", None)
-    dob = request.POST.get("dob", None)
-    email = request.POST.get("email", None)
-    doctor_email = request.POST.get("doctor_email", None)
-    # Get template
-    template = loader.get_template('dashboard/success.html')
-    context = {}
-    # Update the database entry
-    uid = request_id.get_id(request)
-    if uid:
-        user_row = User.objects.get(pk=uid)
-        user_row.first_name = first_name
-        user_row.last_name = last_name
-        user_row.dob = dob
-        user_row.email = email
-        user_row.doctor_email = doctor_email
-        user_row.save()
-        context['successful'] = True
-    return HttpResponse(template.render(context, request))
-
-def post_password(request):
+def new_password(request):
     # Get form input
     old_pass = request.POST.get("old_password", None)
     new_pass = request.POST.get("new_password", None)
-    # Get template
-    template = loader.get_template('dashboard/success.html')
-    context = {}
-    # Check the user's authentication
+
+    # Check that the user is authenticated first
     u = request.user
-    if u.is_authenticated() and u == authenticate(username=request.user.username, password=old_pass):
-        # Change password
-        u.set_password(new_pass)
-        u.save()
-        context['successful'] = True
+    if not u.is_authenticated() or not u == authenticate(username=request.user.username, password=old_pass):
+        template = loader.get_template('dashboard/message.html')
+        return HttpResponse(template.render({"message":"Your current password is incorrect."}, request))
+
+    # Change the password
+    u.set_password(new_pass)
+    u.save()
+
+    # Send response
+    template = loader.get_template('dashboard/message.html')
+    context = {"message": "Your password has been changed successfully!"}
     return HttpResponse(template.render(context, request))
