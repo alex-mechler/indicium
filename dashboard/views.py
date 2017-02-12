@@ -31,7 +31,11 @@ def index(request):
                     }
                     text += "\n".join((i+": "+items[i]) for i in items if items[i]) + "\n\n===========================\n\n"
             # Send email
-            send_mail('Patient Symptoms', text, 'reports@indiciumapp.com',[u.doctor_email, 'ejm4010@rit.edu'], fail_silently=False)
+            send_mail(subject='Patient Symptoms', 
+                      message=text, 
+                      from_email='reports@indiciumapp.com',
+                      recipient_list=[u.doctor_email, 'ejm4010@rit.edu'],
+                      body=text)
 
     # Otherwise, just respond with dashboard
     template = loader.get_template('dashboard/index.html')
