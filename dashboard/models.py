@@ -11,11 +11,14 @@ from django.db import models
 
 
 class Symptoms(models.Model):
-    id = models.TextField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.TextField(primary_key=True, db_column='ID', blank=True, null=False)  # Field name made lowercase.
+    user_id = models.TextField(db_column='USER_ID', blank=True, null=True)  # Field name made lowercase.
     control_id = models.TextField(db_column='CONTROL_ID', blank=True, null=True)  # Field name made lowercase.
     symptom = models.TextField(db_column='SYMPTOM', blank=True, null=True)  # Field name made lowercase.
     location = models.TextField(db_column='LOCATION', blank=True, null=True)  # Field name made lowercase.
     intensity = models.IntegerField(db_column='INTENSITY', blank=True, null=True)  # Field name made lowercase.
+    start = models.IntegerField(db_column='START', blank=True, null=True)  # Field name made lowercase.
+    end = models.IntegerField(db_column='END', blank=True, null=True)  # Field name made lowercase.
     comments = models.TextField(db_column='COMMENTS', blank=True, null=True)  # Field name made lowercase.
     img_url = models.TextField(db_column='IMG_URL', blank=True, null=True)  # Field name made lowercase.
 
@@ -25,7 +28,7 @@ class Symptoms(models.Model):
 
 
 class User(models.Model):
-    id = models.TextField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.TextField(primary_key=True, db_column='ID', blank=True, null=False)  # Field name made lowercase.
     control_id = models.TextField(db_column='CONTROL_ID', blank=True, null=True)  # Field name made lowercase.
     first_name = models.TextField(db_column='FIRST_NAME', blank=True, null=True)  # Field name made lowercase.
     last_name = models.TextField(db_column='LAST_NAME', blank=True, null=True)  # Field name made lowercase.
@@ -36,3 +39,5 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'USER'
+
+

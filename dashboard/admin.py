@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dashboard.models import Symptoms, Users
+from .models import Symptoms, User
 
 
 # Uncomment the lines below to use web admin interface on the database
