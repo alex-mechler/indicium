@@ -9,7 +9,6 @@
 
 		<!-- Website Font style -->
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		<link rel="stylesheet" href="style.css">
 		<!-- Google Fonts -->
 		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
@@ -20,18 +19,19 @@
 		<title>Sign Up</title>
 	</head>
 	<body>
+
 		<div class="container" id="override-bootstrap">
 			<div class="row main">
 				<div class="main-login main-center">
 				<h1 id="or-h1">Sign up for Indicium</h1>
-					<form class="" method="post" action="#">
+					<form class="pure-form" method="post" action="#" id="sign-up-form">
 						
 						<div class="form-group">
 							<label for="name" class="cols-sm-2 control-label">First Name</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="Fname" id="name"  placeholder="Enter your First Name" required />
+									<input type="text" class="form-control" name="Fname" id="name"  placeholder="Enter your First Name" required>
 								</div>
 							</div>
 						</div>
@@ -40,7 +40,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="Lname" id="name"  placeholder="Enter your Last Name" required/>
+									<input type="text" class="form-control" name="Lname" id="name"  placeholder="Enter your Last Name" required>
 								</div>
 							</div>
 						</div>
@@ -49,7 +49,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="date" class="form-control" name="dob" id="dob" required/>
+									<input type="date" class="form-control" name="dob" id="dob" required>
 								</div>
 							</div>
 						</div>
@@ -59,7 +59,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
+									<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email" required>
 								</div>
 							</div>
 						</div>
@@ -69,7 +69,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" required/>
+									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" required>
 								</div>
 							</div>
 						</div>
@@ -79,7 +79,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" required/>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" required>
 								</div>
 							</div>
 						</div>
@@ -89,13 +89,13 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm_pass" id="confirm_password"  placeholder="Confirm your Password" required/>
+									<input type="password" class="form-control" name="confirm_pass" id="confirm_password"  placeholder="Confirm your Password" required>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group ">
-							<input type="submit" id="or-button" class="btn btn-primary btn-lg btn-block login-button" value="SIGN UP">
+							<input type="submit" id="or-button" class="btn btn-primary btn-lg btn-block login-button" value="SIGN UP" >
 						</div>
 						
 					</form>
@@ -104,20 +104,21 @@
 		</div>
 
 		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
-    var password = document.getElementById("password")
-  , confirm_password = document.getElementById("confirm_password");
-
-function validatePassword(){
-  if(password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
-  } else {
-    confirm_password.setCustomValidity('');
-  }
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#confirm_password").on('input', function(event){ 
+                    var pass1 = $("#password").val();
+                    var pass2 = $("#confirm_password").val();
+                    var conf = $("#confirm_password")[0];
+                    conf.setCustomValidity("");
+                    if(pass1!==pass2){
+                        conf.setCustomValidity("Passwords don't match.");
+                        return false;
+                    }
+                    
+                });
+            });
     </script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
