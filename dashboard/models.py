@@ -11,7 +11,6 @@ from django.db import models
 
 
 class Symptoms(models.Model):
-    id = models.TextField(primary_key=True, db_column='ID', blank=True, null=False)  # Field name made lowercase.
     user_id = models.TextField(db_column='USER_ID', blank=True, null=True)  # Field name made lowercase.
     control_id = models.TextField(db_column='CONTROL_ID', blank=True, null=True)  # Field name made lowercase.
     symptom = models.TextField(db_column='SYMPTOM', blank=True, null=True)  # Field name made lowercase.
