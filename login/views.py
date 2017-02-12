@@ -20,4 +20,5 @@ def index(request):
             return HttpResponseRedirect("/dashboard")
 #             return HttpResponse('Thanks for loging in ' + username)
         else:
-            return HttpResponse('failed')
+            template = loader.get_template('dashboard/message.html')
+            return HttpResponse(template.render({"message":'Sign in failed. Try to <a href= "../login">Login again</a>, or <a href= "../signup">Sign Up</a>'}, request))
