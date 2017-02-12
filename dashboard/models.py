@@ -29,7 +29,6 @@ class User(models.Model):
     control_id = models.TextField(db_column='CONTROL_ID', blank=True, null=True)  # Field name made lowercase.
     first_name = models.TextField(db_column='FIRST_NAME', blank=True, null=True)  # Field name made lowercase.
     last_name = models.TextField(db_column='LAST_NAME', blank=True, null=True)  # Field name made lowercase.
-    field5 = models.IntegerField(db_column='Field5', blank=True, null=True)  # Field name made lowercase.
     dob = models.TextField(db_column='DOB', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     email = models.TextField(db_column='EMAIL', blank=True, null=True)  # Field name made lowercase.
     doctor_email = models.TextField(db_column='DOCTOR_EMAIL', blank=True, null=True)  # Field name made lowercase.

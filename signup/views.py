@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 import request_id
-from database.models import User as CustUser
+from dashboard.models import User as CustUser
 
 
 # Create your views here.
@@ -28,6 +28,6 @@ def index(request):
         user.first_name = firstname
         user.save()
 
-        uid = request_id.get_id(request)
-        u = CustUser(id=uid, control_id=uid, first_name=firstname, last_name=last_name, dob=dob, email=email)
+        uid = request_id.gen_id(username)
+        u = CustUser(id=uid, control_id=uid, first_name=firstname, last_name=lastname, dob=dob, email=email)
         u.save()
