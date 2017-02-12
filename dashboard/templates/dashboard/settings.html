@@ -76,13 +76,6 @@
 					try{ace.settings.loadState('sidebar')}catch(e){}
 				</script>
 				<ul class="nav nav-list">
-					<li class="active">
-						<a href="{% url 'dashboard:index' %}">
-							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> Dashboard </span>
-						</a>
-						<b class="arrow"></b>
-					</li>
 					<li><a href="{% url 'dashboard:index' %}">
 						<i class="menu-icon fa fa-list"></i>
 						<span class="menu-text">Manage Symptoms</span>
@@ -91,7 +84,7 @@
 						<i class="menu-icon fa fa-users"></i>
 						<span class="menu-text">Manage Dependants</span>
 					</a></li>
-					<li class=""><a href="{% url 'dashboard:settings' %}">
+					<li class="active"><a href="{% url 'dashboard:settings' %}">
 						<i class="menu-icon fa fa-user"></i>
 						<span class="menu-text">Manage Account</span>
 					</a></li>
