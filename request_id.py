@@ -7,8 +7,12 @@ def get_id(request):
     """
     if request.user.is_authenticated():
         username = request.user.username
-        print(username)
         m = hashlib.md5()
         m.update(username.encode('utf-8'))
         return m.hexdigest()
-    return None 
+    return None
+
+def gen_id(username):
+    m = hashlib.md5()
+    m.update(username.encode('utf-8'))
+    return m.hexdigest()
