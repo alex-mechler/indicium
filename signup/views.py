@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template import loader, Context
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -31,3 +31,5 @@ def index(request):
         uid = request_id.gen_id(username)
         u = CustUser(id=uid, control_id=uid, first_name=firstname, last_name=lastname, dob=dob, email=email)
         u.save()
+
+        return HttpResponseRedirect("/dashboard")

@@ -1,0 +1,6 @@
+{% if successful %}
+<title>Your changes were successful!</title>
+<a href="{% url 'dashboard:index' %}">Return to dashboard?</a>
+{% else %}
+THERE WAS A PROBLEM MAKING YOUR CHANGES
+{% endif %}

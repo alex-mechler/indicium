@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template import loader, Context
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 
@@ -17,6 +17,7 @@ def index(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponse('Thanks for loging in ' + username)
+            return HttpResponseRedirect("/dashboard")
+#             return HttpResponse('Thanks for loging in ' + username)
         else:
             return HttpResponse('failed')
