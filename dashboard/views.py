@@ -34,8 +34,7 @@ def index(request):
             send_mail(subject='Patient Symptoms', 
                       message=text, 
                       from_email='reports@indiciumapp.com',
-                      recipient_list=[u.doctor_email, 'ejm4010@rit.edu'],
-                      body=text)
+                      recipient_list=[u.doctor_email, 'ejm4010@rit.edu'])
 
     # Otherwise, just respond with dashboard
     template = loader.get_template('dashboard/index.html')
