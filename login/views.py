@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.template import loader, Context
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.

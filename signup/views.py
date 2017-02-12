@@ -5,6 +5,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
+import request_id
+from database.models import User as CustUser
+
 
 # Create your views here.
 @csrf_exempt
@@ -24,3 +27,7 @@ def index(request):
         user.last_name = lastname
         user.first_name = firstname
         user.save()
+
+        uid = request_id.get_id(request)
+        u = CustUser(id=uid, control_id=uid, first_name=firstname, last_name=last_name, dob=dob, email=email)
+        u.save()
