@@ -7,6 +7,6 @@ import request_id
 def settings(request):
     uid = request_id.get_id(request)
     if uid:
-        user_row = User.objects.filter(id=uid)
+        user_row = User.objects.get(pk=uid)
         return HttpResponse(user_row.email)
     return HttpResponse("The user is not authenticated")
