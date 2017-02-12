@@ -32,8 +32,8 @@ def index(request):
                         "symptom" : row.symptom,
                         "location" : row.location,
                         "intensity": str(row.intensity),
-                        "start": str(row.start),
-                        "end": str(row.end),
+                        "start": datetime.datetime.fromtimestamp(row.start).strftime('%Y-%m-%d'),
+                        "end": datetime.datetime.fromtimestamp(row.end).strftime('%Y-%m-%d'),
                         "comments": row.comments,
                         "img_url": row.img_url,
                     }
