@@ -36,6 +36,7 @@ def post_settings(request):
         user_row.dob = dob
         user_row.email = email
         user_row.doctor_email = doctor_email
+        user_row.save()
         context['successful'] = True
     return HttpResponse(template.render(context, request))
 
