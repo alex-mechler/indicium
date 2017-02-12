@@ -76,18 +76,11 @@
 					try{ace.settings.loadState('sidebar')}catch(e){}
 				</script>
 				<ul class="nav nav-list">
-					<li class="active">
-						<a href="{% url 'dashboard:index' %}">
-							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> Dashboard </span>
-						</a>
-						<b class="arrow"></b>
-					</li>
 					<li><a href="{% url 'dashboard:index' %}">
 						<i class="menu-icon fa fa-list"></i>
 						<span class="menu-text">Manage Symptoms</span>
 					</a></li>
-					<li><a href="{% url 'dashboard:dependants' %}">
+					<li class="active"><a href="{% url 'dashboard:dependants' %}">
 						<i class="menu-icon fa fa-users"></i>
 						<span class="menu-text">Manage Dependants</span>
 					</a></li>
@@ -117,7 +110,7 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<!-- PAGE CONTENT BEGINS -->
-                                    
+
 								<div class="error-container">
 									<div class="well">
 										<h1 class="grey lighter smaller">
@@ -152,16 +145,6 @@
 										</div>
 
 										<hr />
-										<div class="space"></div>
-
-										<div class="center">
-											<a href="javascript:history.back()" class="btn btn-grey">
-
-											<a href="index.html" class="btn btn-primary">
-												<i class="ace-icon fa fa-tachometer"></i>
-												Dashboard
-											</a>
-										</div>
 									</div>
 								</div>
 

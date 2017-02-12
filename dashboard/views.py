@@ -50,6 +50,17 @@ def index(request):
     context = {"symptoms" : Symptoms.objects.filter(user_id=uid)}
     return HttpResponse(template.render(context, request))
 
+def dependants(request):
+    # Check that the user is authenticated first
+    uid = request_id.get_id(request)
+    if not uid:
+        template = loader.get_template('dashboard/message.html')
+        return HttpResponse(template.render({"message":"You need to log in before you can continue."}, request))
+
+    # Handle request
+    template = loader.get_template('dashboard/dependants.html')
+    return HttpResponse(template.render({}, request))
+
 def settings(request):
     """Handles the editing of user settings"""
 
