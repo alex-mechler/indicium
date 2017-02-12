@@ -84,18 +84,9 @@
 						</a>
 						<b class="arrow"></b>
 					</li>
-					<li><a href="/dashboard">
-						<i class="menu-icon fa fa-list"></i>
-						<span class="menu-text">Manage Symptoms</span>
-					</a></li>
-					<li><a href="/dashboard/dependants">
-						<i class="menu-icon fa fa-users"></i>
-						<span class="menu-text">Manage Dependants</span>
-					</a></li>
-					<li class=""><a href="/dashboard/settings">
-						<i class="menu-icon fa fa-user"></i>
-						<span class="menu-text">Manage Account</span>
-					</a></li>
+					<li><a href="/dashboard"><span class="menu-text">Manage Symptoms</span></a></li>
+					<li><a href="/dashboard/dependants"><span class="menu-text">Manage Dependants</span></a></li>
+					<li class=""><a href="/dashboard/settings"><span class="menu-text">Manage Account</span></a></li>
 				</ul><!-- /.nav-list -->
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
@@ -111,10 +102,6 @@
 						<div class="page-header">
 							<h1>
 								Dashboard
-								<small>
-									<i class="ace-icon fa fa-angle-double-right"></i>
-									edit user account
-								</small>
 							</h1>
 						</div><!-- /.page-header -->
 
@@ -123,39 +110,23 @@
 								<!-- PAGE CONTENT BEGINS -->
 
 
-								{% if user_row %}
 
-								<div class="panel panel-default">
-									<div class="panel-heading">About</div>
-									<div class="panel-body">
-										<form method="POST" action="{% url 'dashboard:post_settings' %}">
-										{% csrf_token %}
-										<p>First name: <input type="text" name="first_name" value="{{ user_row.first_name }}"/></p>
-										<p>Last name: <input type="text" name="last_name" value="{{ user_row.last_name }}"/></p>
-										<p>Birthdate: <input type="text" name="dob" value="{{ user_row.dob }}"/></p>
-										<p>Email: <input type="text" name="email" value="{{ user_row.email }}"/></p>
-										<p>Doctor Email: <input type="text" name="doctor_email" value="{{ user_row.doctor_email }}"/></p>
-										<input type="submit"/>
-										</form>
-									</div>
+
+
+								<div class="alert alert-block alert-success">
+									<button type="button" class="close" data-dismiss="alert">
+										<i class="ace-icon fa fa-times"></i>
+									</button>
+
+									<i class="ace-icon fa fa-check green"></i>
+
+									{{ message }}
+									<!-- Welcome to -->
+									<!-- <strong class="green">
+										INDICIUM
+										<small>(v1.0) </small>
+									</strong>, Select the task that you want to perform from the side menu. -->
 								</div>
-
-								<div class="panel panel-default">
-									<div class="panel-heading">Change Password</div>
-									<div class="panel-body">
-										<form method="post" action="{% url 'dashboard:post_password' %}">
-										{% csrf_token %}
-										<p>Old Password: <input type="password" name="old_password"/></p>
-										<p>New Password: <input type="password" name="new_password"/></p>
-										<input type="submit"/>
-										</form>
-									</div>
-								</div>
-
-								{% else %}
-								<p>You need to log in first.</p>
-								{% endif %}
-
 
 
 

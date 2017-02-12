@@ -1,13 +1,42 @@
-from .models import User
+from .models import User, Symptoms
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import authenticate
+from django.core.mail import send_mail
 import request_id
 
 def index(request):
+
+    # Perform action if requested
+    if request.method == 'POST':
+        if request.POST.get("send_action", None) != None:
+            # Get user information
+            uid = request_id.get_id(request)
+            u = User.objects.get(pk=uid)
+            # Construct email from selected symptoms
+            text = "Here is a table of " + u.first_name + " " + u.last_name + "'s symptoms:\n==============================\n"
+            for item in request.POST:
+                if item[:5]=="start":
+                    row = Symptoms.objects.filter(user_id=uid, start=item[5:])[0]
+                    items = {
+                        "symptom" : row.symptom,
+                        "location" : row.location,
+                        "intensity": str(row.intensity),
+                        "start": str(row.start),
+                        "end": str(row.end),
+                        "comments": row.comments,
+                        "img_url": row.img_url,
+                    }
+                    text += "\n".join((i+": "+items[i]) for i in items if items[i]) + "\n\n===========================\n\n"
+            # Send email
+            send_mail('Patient Symptoms', text, 'elliot@bitoffdev.com',[u.doctor_email, 'ejm4010@rit.edu'], fail_silently=False)
+
+    # Otherwise, just respond with dashboard
     template = loader.get_template('dashboard/index.html')
-    context = {}
+    # Load symptoms
+    uid = request_id.get_id(request)
+    context = {"symptoms" : Symptoms.objects.filter(user_id=uid)}
     return HttpResponse(template.render(context, request))
 
 def settings(request):
@@ -16,6 +45,29 @@ def settings(request):
     context = {}
     if uid:
         context['user_row'] = User.objects.get(pk=uid)
+    return HttpResponse(template.render(context, request))
+
+def new_symptom(request):
+    template = loader.get_template('dashboard/newsymptom.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def post_symptom(request):
+    symptom = request.POST.get("symptom", None)
+    start = request.POST.get("start", None)
+    end = request.POST.get("end", None)
+    intensity = request.POST.get("intensity", None)
+    location = request.POST.get("location", None)
+    comments = request.POST.get("comments", None)
+    # Get template
+    template = loader.get_template('dashboard/message.html')
+    context = {"message" : "There was a problem adding your symptom."}
+    # create a new symptom entry
+    uid = request_id.get_id(request)
+    if uid:
+        s = Symptoms(user_id=uid, control_id=uid, symptom=symptom, start=start, end=end, intensity=intensity, location=location, comments=comments)
+        s.save()
+        context["message"] = "Your new symptom was successfully added to the database."
     return HttpResponse(template.render(context, request))
 
 def post_settings(request):

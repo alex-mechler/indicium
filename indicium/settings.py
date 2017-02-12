@@ -125,3 +125,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+# SparkPost API Settings
+EMAIL_HOST = 'smtp.sparkpostmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'SMTP_Injection'
+EMAIL_HOST_PASSWORD = '2aaaceeae0e05c56b8e8c85014c69f6c077d9ccf'
+EMAIL_USE_TLS = True

@@ -113,7 +113,7 @@
 								Dashboard
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
-									edit user account
+									create new symptom
 								</small>
 							</h1>
 						</div><!-- /.page-header -->
@@ -123,39 +123,46 @@
 								<!-- PAGE CONTENT BEGINS -->
 
 
-								{% if user_row %}
+
 
 								<div class="panel panel-default">
-									<div class="panel-heading">About</div>
+									<div class="panel-heading">New Symptom</div>
 									<div class="panel-body">
-										<form method="POST" action="{% url 'dashboard:post_settings' %}">
-										{% csrf_token %}
-										<p>First name: <input type="text" name="first_name" value="{{ user_row.first_name }}"/></p>
-										<p>Last name: <input type="text" name="last_name" value="{{ user_row.last_name }}"/></p>
-										<p>Birthdate: <input type="text" name="dob" value="{{ user_row.dob }}"/></p>
-										<p>Email: <input type="text" name="email" value="{{ user_row.email }}"/></p>
-										<p>Doctor Email: <input type="text" name="doctor_email" value="{{ user_row.doctor_email }}"/></p>
-										<input type="submit"/>
+										<form action="/dashboard/post_symptom" method="post" accept-charset="utf-8">
+											{% csrf_token %}
+											<p>Symptom Title: <input type="text" name="symptom"/></p>
+											<p>Start Date: <input type="text" name="start"/></p>
+											<p>End Date: <input type="text" name="end"/></p>
+											<p>
+												Severity:
+												<input type="radio" name="intensity" value="1"> 1
+												<input type="radio" name="intensity" value="2"> 2
+												<input type="radio" name="intensity" value="3"> 3
+												<input type="radio" name="intensity" value="4"> 4
+												<input type="radio" name="intensity" value="5"> 5
+												<input type="radio" name="intensity" value="6"> 6
+												<input type="radio" name="intensity" value="7"> 7
+												<input type="radio" name="intensity" value="8"> 8
+												<input type="radio" name="intensity" value="9"> 9
+												<input type="radio" name="intensity" value="10"> 10
+											</p>
+											<p>
+												Location:
+												<input type="radio" name="location" value="Head"> Head
+												<input type="radio" name="location" value="Chest"> Chest
+												<input type="radio" name="location" value="Abdomen"> Abdomen
+												<input type="radio" name="location" value="Groin"> Groin
+												<input type="radio" name="location" value="Legs"> Legs
+												<input type="radio" name="location" value="Feet"> Feet
+											</p>
+											<p>
+												Symptom Description:
+												<br><textarea name="comments" rows="5" cols="80"></textarea>
+											</p>
+											<input type='submit'class="btn btn-primary"/>
 										</form>
 									</div>
 								</div>
-
-								<div class="panel panel-default">
-									<div class="panel-heading">Change Password</div>
-									<div class="panel-body">
-										<form method="post" action="{% url 'dashboard:post_password' %}">
-										{% csrf_token %}
-										<p>Old Password: <input type="password" name="old_password"/></p>
-										<p>New Password: <input type="password" name="new_password"/></p>
-										<input type="submit"/>
-										</form>
-									</div>
-								</div>
-
-								{% else %}
-								<p>You need to log in first.</p>
-								{% endif %}
-
 
 
 
