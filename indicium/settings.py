@@ -126,8 +126,10 @@ STATICFILES_DIRS = [
 ]
 
 # SparkPost API Settings
-EMAIL_HOST = 'smtp.sparkpostmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'SMTP_Injection'
-EMAIL_HOST_PASSWORD = '2aaaceeae0e05c56b8e8c85014c69f6c077d9ccf'
-EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.sparkpostmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'SMTP_Injection'
+#EMAIL_HOST_PASSWORD = '2aaaceeae0e05c56b8e8c85014c69f6c077d9ccf'
+#EMAIL_USE_TLS = True
+SPARKPOST_API_KEY = 'a5301674a95bbca4affc086a0f866f1b105a0322'
+EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
