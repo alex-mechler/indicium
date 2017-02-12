@@ -26,7 +26,7 @@ def index(request):
             # Construct email from selected symptoms
             text = "Here is a table of " + u.first_name + " " + u.last_name + "'s symptoms:\n==============================\n"
             for item in request.POST:
-                if item[:5]=="start":
+                if item[:5]=="stamp":
                     row = Symptoms.objects.filter(user_id=uid, start=item[5:])[0]
                     items = {
                         "symptom" : row.symptom,
@@ -50,6 +50,7 @@ def index(request):
     uid = request_id.get_id(request)
     ss = Symptoms.objects.filter(user_id=uid)
     for i in range(len(ss)):
+        ss[i].stamp = ss[i].start
         ss[i].start = datetime.datetime.fromtimestamp(ss[i].start).strftime('%Y-%m-%d')
         ss[i].end = datetime.datetime.fromtimestamp(ss[i].end).strftime('%Y-%m-%d')
     context = {"symptoms" : ss}
