@@ -25,7 +25,7 @@ SECRET_KEY = 'wamh#_^8gh7@_*)$))@$_!ryr4g8$=)n@2(!i07lj8#f$d8an&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["indiciumapp.com"]
+ALLOWED_HOSTS = ["indiciumapp.com", "www.indiciumapp.com"]
 
 
 # Application definition
