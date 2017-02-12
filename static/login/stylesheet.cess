@@ -1,0 +1,63 @@
+body{
+    background-color: #339966;
+}
+#override-bootstrap{
+    background-color: #339966;
+    width: 100%;
+    padding: 0% 30% 0% 30%;
+}
+
+#or-button{
+    background-color: #26734d;
+    -moz-box-shadow:    inset 0 0 1px #000000;
+    -webkit-box-shadow: inset 0 0 1px #000000;
+    box-shadow:         inset 0 0 1px #000000;
+}
+
+#or-h1{
+    color: white;
+    font-size: 150%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pic{
+    width: 80%;
+}
+#or-button1{
+    background-color: #26734d;
+    
+}
+#outerbox{
+    padding: 5%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#cont2{
+    padding: 5%;
+    height: 100%;
+    width: 100%;
+}
+#cont3{
+    padding: 5%;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
+#or-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#cont1{
+    
+}
