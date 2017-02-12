@@ -7,14 +7,21 @@ from django.core.mail import send_mail
 import request_id
 
 def index(request):
+
+    uid = request_id.get_id(request)
+    if not uid:
+        template = loader.get_template('dashboard/message.html')
+        return HttpResponse(template.render({"message":'You need to <a href= "../login">Login</a>  before you can continue.'}, request))
     """Handles the editing of user symptoms"""
 
     # Perform action if requested
     if request.method == 'POST':
         if request.POST.get("send_action", None) != None:
             # Get user information
-            uid = request_id.get_id(request)
             u = User.objects.get(pk=uid)
+            if(u.doctor_email is None):
+                template = loader.get_template('dashboard/message.html')
+                return HttpResponse(template.render({"message":'You need to <a href= "../dashboard/settings">set a doctors email</a> before you can send them an email!'}, request))
             # Construct email from selected symptoms
             text = "Here is a table of " + u.first_name + " " + u.last_name + "'s symptoms:\n==============================\n"
             for item in request.POST:
@@ -31,8 +38,8 @@ def index(request):
                     }
                     text += "\n".join((i+": "+items[i]) for i in items if items[i]) + "\n\n===========================\n\n"
             # Send email
-            send_mail(subject='Patient Symptoms', 
-                      message=text, 
+            send_mail(subject='Patient Symptoms',
+                      message=text,
                       from_email='reports@indiciumapp.com',
                       recipient_list=[u.doctor_email, 'ejm4010@rit.edu'])
 
