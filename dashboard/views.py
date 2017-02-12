@@ -5,6 +5,7 @@ from django.template import loader
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 import request_id
+import datetime
 
 def index(request):
 
@@ -47,7 +48,11 @@ def index(request):
     template = loader.get_template('dashboard/index.html')
     # Load symptoms
     uid = request_id.get_id(request)
-    context = {"symptoms" : Symptoms.objects.filter(user_id=uid)}
+    ss = Symptoms.objects.filter(user_id=uid)
+    for i in range(len(ss)):
+        ss[i].start = datetime.datetime.fromtimestamp(ss[i].start).strftime('%Y-%m-%d')
+        ss[i].end = datetime.datetime.fromtimestamp(ss[i].end).strftime('%Y-%m-%d')
+    context = {"symptoms" : ss}
     return HttpResponse(template.render(context, request))
 
 def dependants(request):
@@ -118,6 +123,14 @@ def new_symptom(request):
     intensity = request.POST.get("intensity", None)
     location = request.POST.get("location", None)
     comments = request.POST.get("comments", None)
+    # Validate dates
+    try:
+        start = datetime.datetime.strptime(start, "%Y-%m-%d").timestamp()
+        end = datetime.datetime.strptime(end, "%Y-%m-%d").timestamp()
+    except:
+        template = loader.get_template('dashboard/message.html')
+        context = {"message": "Your dates are not valid. Make sure they are more recent than 1970."}
+        return HttpResponse(template.render(context, request))
     # Create a new symptom entry
     s = Symptoms(user_id=uid, control_id=uid, symptom=symptom, start=start, end=end, intensity=intensity, location=location, comments=comments)
     s.save()
