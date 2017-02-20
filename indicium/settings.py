@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wamh#_^8gh7@_*)$))@$_!ryr4g8$=)n@2(!i07lj8#f$d8an&'
+SECRET_KEY = '' #No secret key for you
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -126,10 +126,5 @@ STATICFILES_DIRS = [
 ]
 
 # SparkPost API Settings
-#EMAIL_HOST = 'smtp.sparkpostmail.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'SMTP_Injection'
-#EMAIL_HOST_PASSWORD = '2aaaceeae0e05c56b8e8c85014c69f6c077d9ccf'
-#EMAIL_USE_TLS = True
-SPARKPOST_API_KEY = 'a5301674a95bbca4affc086a0f866f1b105a0322'
+SPARKPOST_API_KEY = '' #Your API key here
 EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
